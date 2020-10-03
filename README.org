@@ -1,0 +1,24 @@
+* README
+Clojure Kondo support for lsp-mode using [[https://github.com/snoe/clojure-kondo-lsp][clojure-kondo-lsp]].
+
+** Installation
+
+#+BEGIN_SRC emacs-lisp
+    (require 'lsp-mode)
+    (require 'lsp-clojure-kondo)
+#+END_SRC
+
+
+* How to make an lsp mode for emacs
+#+BEGIN_SRC emacs-lisp -n :async :results verbatim code
+  (require 'lsp-mode)
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("bash" "-c" "clojure-kondo-lsp"))
+                    :major-modes '(clojure-kondo-mode clojure-kondoc-mode clojure-kondoscript-mode)
+                    :server-id 'clojure-kondo-lsp))
+  (add-to-list 'lsp-language-id-configuration '(clojure-kondo-mode . "clojure-kondo-mode"))
+  (setq lsp-enable-indentation nil)
+  (add-hook 'clojure-kondo-mode-hook #'lsp)
+  (add-hook 'clojure-kondoc-mode-hook #'lsp)
+  (add-hook 'clojure-kondoscript-mode-hook #'lsp)
+#+END_SRC
