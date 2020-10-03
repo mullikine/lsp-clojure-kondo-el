@@ -23,7 +23,7 @@
 (lsp-register-client
  (make-lsp-client :new-connection
                   (lsp-stdio-connection 'lsp-clojure-kondo--server-command)
-                  :major-modes '(clojure-mode)
+                  :major-modes '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode)
                   :server-id 'clojure-kondo
                   :initialized-fn (lambda (workspace)
                                     (with-lsp-workspace workspace
